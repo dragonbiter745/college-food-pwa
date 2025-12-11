@@ -35,6 +35,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <CartProvider>
+        {/* GLOBAL COMPONENTS (NOT INSIDE ROUTES) */}
+        <InstallPrompt />
+        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+
         <Routes>
 
           {/* STUDENT FLOW */}
@@ -42,34 +46,34 @@ export default function App() {
             path="/"
             element={
               session ? (
-                <>
-                  <MenuPage openCart={() => setCartOpen(true)} />
-                  <CartDrawer
-                    open={cartOpen}
-                    onClose={() => setCartOpen(false)}
-                  />
-                </>
+                <MenuPage openCart={() => setCartOpen(true)} />
               ) : (
                 <StudentLogin />
               )
             }
           />
-          <Route path="/track"
-            element={<ProtectedRoute><TrackOrder /></ProtectedRoute>}
+
+          <Route
+            path="/track"
+            element={
+              <ProtectedRoute>
+                <TrackOrder />
+              </ProtectedRoute>
+            }
           />
-          <Route path="/history"
-            element={<ProtectedRoute><OrderHistory /></ProtectedRoute>}
+
+          <Route
+            path="/history"
+            element={
+              <ProtectedRoute>
+                <OrderHistory />
+              </ProtectedRoute>
+            }
           />
-          <InstallPrompt />
-          <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
 
           {/* VENDOR FLOW */}
-          <Route path="/vendor-login"
-            element={<VendorLogin />}
-          />
-          <Route path="/vendor"
-            element={<Dashboard />}
-          />
+          <Route path="/vendor-login" element={<VendorLogin />} />
+          <Route path="/vendor" element={<Dashboard />} />
 
         </Routes>
       </CartProvider>
