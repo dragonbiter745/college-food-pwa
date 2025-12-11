@@ -8,6 +8,8 @@ import TrackOrder from "./features/student/TrackOrder";
 import { CartProvider } from "./context/CartContext";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import InstallPrompt from "./components/InstallPrompt";
+
 import CartDrawer from "./components/CartDrawer";
 import { supabase } from "./lib/supabase";
 
@@ -58,6 +60,8 @@ export default function App() {
           <Route path="/history"
             element={<ProtectedRoute><OrderHistory /></ProtectedRoute>}
           />
+          <InstallPrompt />
+          <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
 
           {/* VENDOR FLOW */}
           <Route path="/vendor-login"
